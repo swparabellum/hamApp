@@ -11,9 +11,9 @@ class ContactLogAdapter(private var logList: List<ContactLog> = emptyList()) :
     inner class LogViewHolder(val binding: ItemContactLogBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(log: ContactLog) {
             binding.tvCallsign.text = log.callsign
-            binding.tvBandMode.text = log.band
-            binding.tvDateTime.text = log.dateUtc
-            binding.tvRst.text = log.rstRcvd
+            binding.tvFrequencyMhz.text = log.frequencyMhz.toString()
+            binding.tvDateTime.text = log.dateUtc.toString()
+//            binding.tvRst.text = log.rstRcvd
             binding.tvQth.text = log.qth
         }
     }

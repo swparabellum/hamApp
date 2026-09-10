@@ -26,9 +26,22 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="DS1UNZ" />
 
-        <!-- 밴드 및 모드 (Band / Mode) -->
+<!--        &lt;!&ndash; 밴드 및 모드 (Band / Mode) &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:id="@+id/tvBandMode"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:textSize="14sp"-->
+<!--            android:textColor="@android:color/darker_gray"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/tvCallsign"-->
+<!--            app:layout_constraintStart_toEndOf="@id/tvCallsign"-->
+<!--            app:layout_constraintTop_toTopOf="@id/tvCallsign"-->
+<!--            tools:text="20m • SSB" />-->
+
+        <!-- 주파수 (예: 145.000) -->
         <TextView
-            android:id="@+id/tvBandMode"
+            android:id="@+id/tvFrequencyMhz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -37,7 +50,7 @@
             app:layout_constraintBottom_toBottomOf="@id/tvCallsign"
             app:layout_constraintStart_toEndOf="@id/tvCallsign"
             app:layout_constraintTop_toTopOf="@id/tvCallsign"
-            tools:text="20m • SSB" />
+            tools:text="145.000" />
 
         <!-- 날짜 및 시간 -->
         <TextView
@@ -49,16 +62,16 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="2026-09-06 17:30 UTC" />
 
-        <!-- RST 정보 -->
-        <TextView
-            android:id="@+id/tvRst"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvCallsign"
-            tools:text="RST: 59 / 59" />
+<!--        &lt;!&ndash; RST 정보 &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:id="@+id/tvRst"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="6dp"-->
+<!--            android:textSize="14sp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tvCallsign"-->
+<!--            tools:text="RST: 59 / 59" />-->
 
         <!-- QTH / Grid -->
         <TextView
@@ -68,8 +81,8 @@
             android:layout_marginTop="4dp"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvRst"
-            tools:text="SEOUL (PM37lg)" />
+            app:layout_constraintTop_toBottomOf="@id/tvCallsign"
+            tools:text="SEOUL" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
