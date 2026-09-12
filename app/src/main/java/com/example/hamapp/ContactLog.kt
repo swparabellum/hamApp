@@ -2,7 +2,7 @@ package com.example.hamapp
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.sql.Date
+import java.util.Date
 
 @Entity(tableName = "contact_logs")
 data class ContactLog(
