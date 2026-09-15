@@ -47,13 +47,12 @@
                 android:id="@+id/etDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="datetime"
-                android:text=""
-                android:ems="10"
-                android:maxLength="6"
                 android:layout_weight="7"
-                android:hint="통신일자입력란"
-                />
+                android:hint="여기를 눌러 날짜/시간 선택"
+                android:inputType="none"
+                android:focusable="false"
+                android:clickable="true"
+                android:ems="10" />
         </LinearLayout>
         <!--통신주파수-->
         <LinearLayout
@@ -73,7 +72,7 @@
                 android:inputType="text"
                 android:text=""
                 android:ems="10"
-                android:maxLength="6"
+                android:maxLength="7"
                 android:layout_weight="7"
                 android:hint="통신주파수입력란"
                 />

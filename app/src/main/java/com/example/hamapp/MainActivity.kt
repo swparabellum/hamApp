@@ -1,6 +1,7 @@
 package com.example.hamapp
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -11,6 +12,9 @@ import com.example.hamapp.databinding.ActivityMainBinding
 import com.example.hamapp.databinding.AddContactLogBinding
 import kotlinx.coroutines.launch
 import androidx.appcompat.app.AlertDialog
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
@@ -48,11 +52,27 @@ class MainActivity : AppCompatActivity() {
             .setView(dialogBinding.root)
             .create()
 
+        // ==== 날짜/시간 선택 이벤트 ====
+        dialogBinding.etDate.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            DatePickerDialog(this, { _, year, month, dayOfMonth ->
+                TimePickerDialog(this, { _, hourOfDay, minute ->
+                    val formatted = String.format("%04d-%02d-%02d %02d:%02d", year, month + 1, dayOfMonth, hourOfDay, minute)
+                    dialogBinding.etDate.setText(formatted)
+                }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show()
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
+        }
+
         // 3. 팝업창 안의 '입력' 버튼 클릭 시 이벤트
         dialogBinding.btnSubmit.setOnClickListener {
             val callSign = dialogBinding.etCallSign.text.toString()
             val date = dialogBinding.etDate.text.toString()
             val frequency = dialogBinding.etFrequency.text.toString()
+
+            if(callSign.length != 6){
+                Toast.makeText(this, "콜사인을 정확히 입력해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener;
+            }
 
             // TODO: 입력받은 데이터를 Room DB에 저장하는 코드 작성
             // ...
