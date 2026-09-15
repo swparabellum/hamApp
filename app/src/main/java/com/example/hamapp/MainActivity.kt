@@ -71,11 +71,32 @@ class MainActivity : AppCompatActivity() {
 
             if(callSign.length != 6){
                 Toast.makeText(this, "콜사인을 정확히 입력해주세요.", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener;
+                return@setOnClickListener
+            }
+            if (date.isEmpty()) {
+                Toast.makeText(this, "날짜를 선택해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (frequency.isEmpty()) {
+                Toast.makeText(this, "주파수를 입력해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
 
-            // TODO: 입력받은 데이터를 Room DB에 저장하는 코드 작성
-            // ...
+            lifecycleScope.launch {
+                try {
+                    val sdf = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault())
+                    val dateObj = sdf.parse(date)
+                    val newLog = ContactLog(
+                        callsign = callSign,
+                        dateUtc = dateObj ?: java.util.Date(),
+                        frequencyMhz = frequency.toDoubleOrNull() ?: 0.0
+                    )
+                    database.contactLogDao().insertLog(newLog)
+                    Toast.makeText(this@MainActivity, "로그가 저장되었습니다.", Toast.LENGTH_SHORT).show()
+                } catch (e: Exception) {
+                    Toast.makeText(this@MainActivity, "데이터 변환 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
 
             dialog.dismiss() // 저장 후 팝업 닫기
         }
