@@ -90,6 +90,7 @@ class MainActivity : AppCompatActivity() {
             val callSign = dialogBinding.etCallSign.text.toString()
             val date = dialogBinding.etDate.text.toString()
             val frequency = dialogBinding.etFrequency.text.toString()
+            val qth = dialogBinding.etQTH.text.toString()
 
             if(callSign.length != 6){
                 Toast.makeText(this, "콜사인을 정확히 입력해주세요.", Toast.LENGTH_SHORT).show()
@@ -117,7 +118,8 @@ class MainActivity : AppCompatActivity() {
                     val newLog = ContactLog(
                         callsign = callSign,
                         dateUtc = dateObj ?: java.util.Date(),
-                        frequencyMhz = frequency.ifBlank { "0.000" }
+                        frequencyMhz = frequency.ifBlank { "0.000" },
+                        qth = qth
                     )
                     database.contactLogDao().insertLog(newLog)
                     Toast.makeText(this@MainActivity, "로그가 저장되었습니다.", Toast.LENGTH_SHORT).show()

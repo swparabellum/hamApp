@@ -78,7 +78,29 @@
                 android:hint="예: 145.000"
                 />
         </LinearLayout>
+        <!--위치(qth) -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="상대방 위치(QTH)"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"/>
 
+            <EditText
+                android:id="@+id/etQTH"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text=""
+                android:ems="10"
+                android:maxLength="15"
+                android:layout_weight="7"
+                android:hint="상대방 위치(QTH) 입력란"
+                />
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
