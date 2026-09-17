@@ -65,7 +65,10 @@ class MainActivity : AppCompatActivity() {
                                 String.format(java.util.Locale.US, "%.3f", num)
                             )
                         }
-
+                        else{
+                            Toast.makeText(this, "유효한 범위를 입력하세요. (10.0~9999.999)", Toast.LENGTH_SHORT).show()
+                            dialogBinding.etFrequency.setText("")
+                        }
                     }
                 }
             }
@@ -100,6 +103,12 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "주파수를 입력해주세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+            val freq = dialogBinding.etFrequency.text.toString().toDoubleOrNull()
+            if (freq == null || freq !in 10.0..9999.999) {
+                Toast.makeText(this, "주파수를 범위에 알맞게 입력해주세요. (10.0~9999.999)", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
 
             lifecycleScope.launch {
                 try {
