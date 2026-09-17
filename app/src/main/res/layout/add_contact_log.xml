@@ -69,12 +69,13 @@
                 android:id="@+id/etFrequency"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="numberDecimal"
+                android:digits="0123456789."
                 android:text=""
                 android:ems="10"
-                android:maxLength="7"
+                android:maxLength="8"
                 android:layout_weight="7"
-                android:hint="통신주파수입력란"
+                android:hint="예: 145.000"
                 />
         </LinearLayout>
 

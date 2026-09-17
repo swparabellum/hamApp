@@ -52,6 +52,25 @@ class MainActivity : AppCompatActivity() {
             .setView(dialogBinding.root)
             .create()
 
+        // 주파수 포맷팅 (FocusChangeListener)
+        dialogBinding.etFrequency.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                val input = dialogBinding.etFrequency.text.toString()
+                if (input.isNotEmpty()) {
+                    val num = input.toDoubleOrNull()
+                    if (num != null) {
+                        if (num in 10.0..9999.999){
+                            // 예를 들어 145 입력 시 145.000 으로 변경
+                            dialogBinding.etFrequency.setText(
+                                String.format(java.util.Locale.US, "%.3f", num)
+                            )
+                        }
+
+                    }
+                }
+            }
+        }
+
         // ==== 날짜/시간 선택 이벤트 ====
         dialogBinding.etDate.setOnClickListener {
             val calendar = Calendar.getInstance()
@@ -89,7 +108,7 @@ class MainActivity : AppCompatActivity() {
                     val newLog = ContactLog(
                         callsign = callSign,
                         dateUtc = dateObj ?: java.util.Date(),
-                        frequencyMhz = frequency.toDoubleOrNull() ?: 0.0
+                        frequencyMhz = frequency.ifBlank { "0.000" }
                     )
                     database.contactLogDao().insertLog(newLog)
                     Toast.makeText(this@MainActivity, "로그가 저장되었습니다.", Toast.LENGTH_SHORT).show()
