@@ -1,6 +1,8 @@
 package com.example.hamapp
 
+import android.R
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
@@ -16,4 +18,10 @@ interface ContactLogDao {
     @Query("SELECT * FROM contact_logs ORDER BY id DESC")
     fun getAllLogs(): Flow<List<ContactLog>>
 
+
+//    @Query("UPDATE contact_logs SET isUse = 'false' WHERE id = :userID")
+//    suspend fun deleteLog(userID: Long)
+
+    @Query("DELETE FROM contact_logs WHERE id = :userID")
+    suspend fun deleteLog(userID: Long)
 }

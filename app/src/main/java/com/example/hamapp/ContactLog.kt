@@ -1,5 +1,6 @@
 package com.example.hamapp
 
+import android.R
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.Date
@@ -17,5 +18,6 @@ data class ContactLog(
     val rstRcvd: String? = null,           // 받은 신호 리포트 (예: 59, 599)
     val qth: String? = null,       // 상대방 위치 (도시 또는 지역명)
 //    val gridSquare: String? = null,// 그리드 스퀘어 (예: PM37lg)
-    val notes: String? = null      // 메모 사항
+    val notes: String? = null,      // 메모 사항
+    val isUse: Boolean = true
 )

@@ -168,13 +168,22 @@ class MainActivity : AppCompatActivity() {
             .setView(detailBinding.root)
             .create()
 
-        // 4. 삭제 등 추가 버튼 구현 (수정 버튼은 미완성이므로 생략)
+        // 4. 삭제 버튼
         detailBinding.btnDelete.setOnClickListener {
-            // 여기에 DB 삭제 로직 추가 가능
-            dialog.dismiss()
+            lifecycleScope.launch {
+                try {
+                    val userID = detailBinding.tvID.text.toString().toLong()
+                    // val userID = log.id 
+                    
+                    database.contactLogDao().deleteLog(userID)
+                    Toast.makeText(this@MainActivity, "로그 삭제 완료.", Toast.LENGTH_SHORT).show()
+                    
+                    dialog.dismiss() // 삭제 성공 후 다이얼로그 닫기
+                } catch (e: Exception) {
+                    Toast.makeText(this@MainActivity, "로그 삭제 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
-        
-        // 닫기 버튼이 없으므로 배경 터치나 취소 버튼으로 닫아야 함
 
         // 5. 화면에 띄우기
         dialog.show()
