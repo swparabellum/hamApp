@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import androidx.appcompat.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import com.example.hamapp.databinding.DetailViewContactLogBinding
 import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
@@ -140,9 +141,48 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    // ==== 로그 상세 보기 다이얼로그 띄우기 함수 ====
+    private fun showDetailLogDialog(log: ContactLog) {
+        // 1. 상세 보기 화면(detail_view_contact_log.xml) 뷰바인딩 객체 생성
+        val detailBinding = DetailViewContactLogBinding.inflate(layoutInflater)
+
+        // 2. 전달받은 ContactLog 데이터를 화면의 뷰에 세팅
+        // (detail_view_contact_log.xml의 EditText ID들에 맞게 수정)
+        detailBinding.etCallSign.setText(log.callsign)
+        
+        // 날짜 포맷팅 (원하는 형식에 맞게 조절 가능)
+        val sdf = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault())
+        detailBinding.etDate.setText(sdf.format(log.dateUtc))
+        detailBinding.tvID.setText(log.id.toString())
+        detailBinding.etFrequency.setText(log.frequencyMhz)
+        detailBinding.etQTH.setText(log.qth)
+        
+        // 추후 수정을 위해 isEnabled = false 처리는 제거함 (기본적으로 수정 가능한 상태)
+        // detailBinding.etCallSign.isEnabled = false
+        // detailBinding.etDate.isEnabled = false
+        // detailBinding.etFrequency.isEnabled = false
+        // detailBinding.etQTH.isEnabled = false
+
+        // 3. AlertDialog 생성
+        val dialog = AlertDialog.Builder(this)
+            .setView(detailBinding.root)
+            .create()
+
+        // 4. 삭제 등 추가 버튼 구현 (수정 버튼은 미완성이므로 생략)
+        detailBinding.btnDelete.setOnClickListener {
+            // 여기에 DB 삭제 로직 추가 가능
+            dialog.dismiss()
+        }
+        
+        // 닫기 버튼이 없으므로 배경 터치나 취소 버튼으로 닫아야 함
+
+        // 5. 화면에 띄우기
+        dialog.show()
+    }
+
     private fun initrvContactLog() {
         // 1. 어댑터 초기화 및 리사이클러뷰 연결
-        adapter = ContactLogAdapter()
+        adapter = ContactLogAdapter{ clickedLog -> showDetailLogDialog(clickedLog)}
         binding.rvContactLog.adapter = adapter
         binding.rvContactLog.layoutManager = LinearLayoutManager(this)
 

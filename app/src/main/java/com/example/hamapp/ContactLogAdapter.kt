@@ -5,11 +5,25 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hamapp.databinding.ItemContactLogBinding
 
-class ContactLogAdapter(private var logList: List<ContactLog> = emptyList()) :
+class ContactLogAdapter(
+    private var logList: List<ContactLog> = emptyList(),
+    private val onItemClick: ((ContactLog) -> Unit)? = null
+) :
     RecyclerView.Adapter<ContactLogAdapter.LogViewHolder>() {
 
     inner class LogViewHolder(val binding: ItemContactLogBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        // 뷰홀더가 생성될 때 클릭 리스너 설정
+        init {
+            binding.root.setOnClickListener {
+                val position = getAbsoluteAdapterPosition()
+                if (position != RecyclerView.NO_POSITION) {
+                    onItemClick?.invoke(logList[position])
+                }
+            }
+        }
         fun bind(log: ContactLog) {
+            binding.tvID.text = log.id.toString()
             binding.tvCallsign.text = log.callsign
             binding.tvFrequencyMhz.text = log.frequencyMhz.toString()
             binding.tvDateTime.text = log.dateUtc.toString()
