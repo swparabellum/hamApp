@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // ==== 다이얼로그 띄우기 함수 ====
+    // ==== 로그 추가 다이얼로그 띄우기 함수 ====
     private fun showAddLogDialog() {
         // 1. 다이얼로그용 화면(add_contact_log.xml) 뷰바인딩 객체 생성
         val dialogBinding = AddContactLogBinding.inflate(layoutInflater)

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--호출부호-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="상대방 호출부호"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"/>
+
+            <EditText
+                android:id="@+id/etCallSign"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text=""
+                android:ems="10"
+                android:maxLength="6"
+                android:layout_weight="7"
+                android:hint="호출부호입력란"
+                />
+        </LinearLayout>
+        <!--통신일자-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="통신일자"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"/>
+
+            <EditText
+                android:id="@+id/etDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:hint="여기를 눌러 날짜/시간 선택"
+                android:inputType="none"
+                android:focusable="false"
+                android:clickable="true"
+                android:ems="10" />
+        </LinearLayout>
+        <!--통신주파수-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="통신 주파수"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"/>
+
+            <EditText
+                android:id="@+id/etFrequency"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:digits="0123456789."
+                android:text=""
+                android:ems="10"
+                android:maxLength="8"
+                android:layout_weight="7"
+                android:hint="예: 145.000"
+                />
+        </LinearLayout>
+        <!--위치(qth) -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="상대방 위치(QTH)"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"/>
+
+            <EditText
+                android:id="@+id/etQTH"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text=""
+                android:ems="10"
+                android:maxLength="15"
+                android:layout_weight="7"
+                android:hint="상대방 위치(QTH) 입력란"
+                />
+        </LinearLayout>
+        <!--보낸 신호 리포트 -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="발신신호 품질"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"/>
+
+            <EditText
+                android:id="@+id/etRstSent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text=""
+                android:ems="10"
+                android:maxLength="2"
+                android:layout_weight="7"
+                android:hint="발신신호 품질"
+                />
+        </LinearLayout>
+        <!--수신 신호 리포트 -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="수신신호 품질"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"/>
+
+            <EditText
+                android:id="@+id/etrstRcvd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text=""
+                android:ems="10"
+                android:maxLength="2"
+                android:layout_weight="7"
+                android:hint="수신신호 품질"
+                />
+        </LinearLayout>
+        <!--기타메모 -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="기타 메모"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"/>
+
+            <EditText
+                android:id="@+id/etMemo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text=""
+                android:ems="10"
+                android:maxLength="140"
+                android:layout_weight="7"
+                android:hint="메모"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btnEdit"
+                android:text="수정(미완성)"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btnDelete"
+                android:text="삭제"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
