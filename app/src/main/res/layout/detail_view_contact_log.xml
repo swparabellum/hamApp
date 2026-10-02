@@ -177,7 +177,12 @@
             android:layout_height="wrap_content">
             <Button
                 android:id="@+id/btnEdit"
-                android:text="수정(미완성)"
+                android:text="수정"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btnSave"
+                android:text="저장"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <Button

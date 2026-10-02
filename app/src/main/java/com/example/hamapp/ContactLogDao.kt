@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -21,6 +22,9 @@ interface ContactLogDao {
 
 //    @Query("UPDATE contact_logs SET isUse = 'false' WHERE id = :userID")
 //    suspend fun deleteLog(userID: Long)
+
+    @Update
+    suspend fun updateLog(contactLog: ContactLog)
 
     @Query("DELETE FROM contact_logs WHERE id = :userID")
     suspend fun deleteLog(userID: Long)

@@ -156,6 +156,10 @@ class MainActivity : AppCompatActivity() {
         detailBinding.tvID.setText(log.id.toString())
         detailBinding.etFrequency.setText(log.frequencyMhz)
         detailBinding.etQTH.setText(log.qth)
+        detailBinding.etRstSent.setText(log.rstSent)
+        detailBinding.etrstRcvd.setText(log.rstRcvd)
+        detailBinding.etMemo.setText(log.notes)
+
 
         // 수정버튼을 누르기 전에는 수정을 못하게 처리.
         detailBinding.etCallSign.isEnabled = false
@@ -165,6 +169,82 @@ class MainActivity : AppCompatActivity() {
         detailBinding.etRstSent.isEnabled = false
         detailBinding.etrstRcvd.isEnabled = false
         detailBinding.etMemo.isEnabled = false
+        detailBinding.btnSave.isEnabled = false
+
+        // 3. 수정 버튼 클릭 시 입력 활성화
+        detailBinding.btnEdit.setOnClickListener {
+            detailBinding.etCallSign.isEnabled = true
+            detailBinding.etDate.isEnabled = true
+            detailBinding.etFrequency.isEnabled = true
+            detailBinding.etQTH.isEnabled = true
+            detailBinding.etRstSent.isEnabled = true
+            detailBinding.etrstRcvd.isEnabled = true
+            detailBinding.etMemo.isEnabled = true
+            detailBinding.btnSave.isEnabled = true
+            detailBinding.btnEdit.isEnabled = false
+        }
+
+        // 4. 저장 버튼 클릭 시 DB 업데이트
+        detailBinding.btnSave.setOnClickListener {
+            val callSign = detailBinding.etCallSign.text.toString()
+            val date = detailBinding.etDate.text.toString()
+            val frequency = detailBinding.etFrequency.text.toString()
+            val qth = detailBinding.etQTH.text.toString()
+            val rstSent = detailBinding.etRstSent.text.toString();
+            val rstRcvd = detailBinding.etrstRcvd.text.toString();
+            val notes = detailBinding.etMemo.text.toString();
+
+
+            if(callSign.length != 6){
+                Toast.makeText(this, "콜사인을 정확히 입력해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (date.isEmpty()) {
+                Toast.makeText(this, "날짜를 선택해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (frequency.isEmpty()) {
+                Toast.makeText(this, "주파수를 입력해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            val freq = detailBinding.etFrequency.text.toString().toDoubleOrNull()
+            if (freq == null || freq !in 10.0..9999.999) {
+                Toast.makeText(this, "주파수를 범위에 알맞게 입력해주세요. (10.0~9999.999)", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+
+            lifecycleScope.launch {
+                try {
+                    val sdf = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault())
+                    val dateObj = sdf.parse(date)
+                    val updatedLog = ContactLog(
+                        id = log.id,
+                        callsign = callSign,
+                        dateUtc = dateObj ?: java.util.Date(),
+                        frequencyMhz = frequency.ifBlank { "0.000" },
+                        qth = qth,
+                        rstSent = rstSent,
+                        rstRcvd = rstRcvd,
+                        notes = notes
+
+                    )
+                    database.contactLogDao().updateLog(updatedLog)
+                    Toast.makeText(this@MainActivity, "로그가 수정되었습니다 .", Toast.LENGTH_SHORT).show()
+                    detailBinding.btnSave.isEnabled = false
+                    detailBinding.btnEdit.isEnabled = true
+                } catch (e: Exception) {
+                    Toast.makeText(this@MainActivity, "데이터 변환 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+            detailBinding.etCallSign.isEnabled = false
+            detailBinding.etDate.isEnabled = false
+            detailBinding.etFrequency.isEnabled = false
+            detailBinding.etQTH.isEnabled = false
+            detailBinding.etRstSent.isEnabled = false
+            detailBinding.etrstRcvd.isEnabled = false
+            detailBinding.etMemo.isEnabled = false
+        }
 
         // ==== 날짜/시간 선택 이벤트 ====
         detailBinding.etDate.setOnClickListener {
