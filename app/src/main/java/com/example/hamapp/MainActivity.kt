@@ -156,12 +156,27 @@ class MainActivity : AppCompatActivity() {
         detailBinding.tvID.setText(log.id.toString())
         detailBinding.etFrequency.setText(log.frequencyMhz)
         detailBinding.etQTH.setText(log.qth)
-        
-        // 추후 수정을 위해 isEnabled = false 처리는 제거함 (기본적으로 수정 가능한 상태)
-        // detailBinding.etCallSign.isEnabled = false
-        // detailBinding.etDate.isEnabled = false
-        // detailBinding.etFrequency.isEnabled = false
-        // detailBinding.etQTH.isEnabled = false
+
+        // 수정버튼을 누르기 전에는 수정을 못하게 처리.
+        detailBinding.etCallSign.isEnabled = false
+        detailBinding.etDate.isEnabled = false
+        detailBinding.etFrequency.isEnabled = false
+        detailBinding.etQTH.isEnabled = false
+        detailBinding.etRstSent.isEnabled = false
+        detailBinding.etrstRcvd.isEnabled = false
+        detailBinding.etMemo.isEnabled = false
+
+        // ==== 날짜/시간 선택 이벤트 ====
+        detailBinding.etDate.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            DatePickerDialog(this, { _, year, month, dayOfMonth ->
+                TimePickerDialog(this, { _, hourOfDay, minute ->
+                    val formatted = String.format("%04d-%02d-%02d %02d:%02d", year, month + 1, dayOfMonth, hourOfDay, minute)
+                    detailBinding.etDate.setText(formatted)
+                }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show()
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
+        }
+
 
         // 3. AlertDialog 생성
         val dialog = AlertDialog.Builder(this)
