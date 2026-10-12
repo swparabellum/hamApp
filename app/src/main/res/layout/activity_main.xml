@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:iconifiedByDefault="false"
-            app:queryHint="콜사인을 입력하세요."/>
+            app:queryHint="호출부호를 입력하세요."/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvContactLog"
