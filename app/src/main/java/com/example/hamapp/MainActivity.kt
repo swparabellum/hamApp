@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
 
         // 3. 팝업창 안의 '입력' 버튼 클릭 시 이벤트
         dialogBinding.btnSubmit.setOnClickListener {
-            val callSign = dialogBinding.etCallSign.text.toString()
+            val callSign = dialogBinding.etCallSign.text.toString().uppercase()
             val date = dialogBinding.etDate.text.toString()
             val frequency = dialogBinding.etFrequency.text.toString()
             val qth = dialogBinding.etQTH.text.toString()
@@ -186,7 +186,7 @@ class MainActivity : AppCompatActivity() {
 
         // 4. 저장 버튼 클릭 시 DB 업데이트
         detailBinding.btnSave.setOnClickListener {
-            val callSign = detailBinding.etCallSign.text.toString()
+            val callSign = detailBinding.etCallSign.text.toString().uppercase()
             val date = detailBinding.etDate.text.toString()
             val frequency = detailBinding.etFrequency.text.toString()
             val qth = detailBinding.etQTH.text.toString()
