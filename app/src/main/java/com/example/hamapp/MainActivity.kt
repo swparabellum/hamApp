@@ -14,6 +14,8 @@ import kotlinx.coroutines.launch
 import androidx.appcompat.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import androidx.appcompat.widget.SearchView
+import androidx.room.util.query
 import com.example.hamapp.databinding.DetailViewContactLogBinding
 import java.util.Calendar
 
@@ -40,6 +42,40 @@ class MainActivity : AppCompatActivity() {
         // ==== btnAddLog 버튼 클릭 이벤트 추가 ====
         binding.btnAddLog.setOnClickListener {
             showAddLogDialog()
+        }
+        binding.wgtSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                performSearch(query)
+                binding.wgtSearch.clearFocus()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                performSearch(newText)
+                return false
+            }
+        })
+    }
+
+    // ==== 검색 수행 함수 ====
+    private fun performSearch(query: String?) {
+        lifecycleScope.launch {
+            if (query.isNullOrBlank()) {
+                // 검색어가 없으면 전체 목록 보여주기
+                database.contactLogDao().getAllLogs().collect { logList ->
+                    adapter.updateData(logList)
+                }
+            } else {
+                // 검색어가 포함된 호출부호(callsign) 검색
+                database.contactLogDao().getAllLogs().collect { logList ->
+                    val filteredList = logList.filter { log ->
+                        log.callsign.contains(query, ignoreCase = true)
+                    }
+                    adapter.updateData(filteredList)
+                }
+            }
+            // 검색 후 최상단으로 스크롤
+            binding.rvContactLog.scrollToPosition(0)
         }
     }
 
